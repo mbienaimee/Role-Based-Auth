@@ -41,7 +41,9 @@ const roleController = {
 
       // Check if email and password are provided
       if (!email || !password) {
-        return res.status(400).json({ message: "Must provide email and password" });
+        return res
+          .status(400)
+          .json({ message: "Must provide email and password" });
       }
 
       // Find user in database
@@ -60,7 +62,9 @@ const roleController = {
 
       // Generate token
       const secret = process.env.SECRET;
-      const token = jwt.sign({ user_id: user.id }, secret, { expiresIn: "3h" });
+      const token = jwt.sign({ user_id: user.id, email: user.email }, secret, {
+        expiresIn: "3h",
+      });
 
       // Set token as a cookie
       const options = {
